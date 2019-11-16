@@ -1,30 +1,31 @@
 #define _GNU_SOURCE
 #include "shell.h"
 
+void handle_ctrlC(int sig)
+{
+	write(1, "\n$ ", 3);
+}
+
 int main(void)
 {
 	char *buffer = NULL;
 	int lenbuf = 0;
+	size_t len = 0;
 
 	while (1)
 	{
-		lenbuf = _getline(&buffer);
+		write(STDOUT_FILENO, "$ ", 2);
+		lenbuf = getline(&buffer, &len, stdin);
+		signal(SIGINT, handle_ctrlC);
 		if (lenbuf == 0)
 			continue;
 		else if (lenbuf == -1)
 		{
-			free(buffer);
-			write(STDOUT_FILENO, "Can't read the command or find EOF\n", 25);
-			exit(-1);
+			write(STDERR_FILENO, "Can't read the command or find EOF\n", 35);
+			exit(EXIT_FAILURE);
 		}
 		else if (lenbuf > 0)
-		{
 			write(STDOUT_FILENO, buffer, lenbuf);
-			printf("len if buf %d\n", lenbuf);
-			free(buffer);
-		}
-		else if (lenbuf == EOF)
-			exit(98);
 	}
 	return (0);
 }
