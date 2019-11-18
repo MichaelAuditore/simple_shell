@@ -8,24 +8,28 @@ void handle_ctrlC(int sig)
 
 int main(void)
 {
-	char *buffer = NULL;
-	int lenbuf = 0;
-	size_t len = 0;
-
 	while (1)
 	{
-		write(STDOUT_FILENO, "$ ", 2);
+		char *buffer = NULL;
+		int lenbuf = 0;
+		size_t len = 0;
+
+		/* signal(SIGINT, handle_ctrlC); */
+		write(STDOUT_FILENO, "#cisfun$ ", 9);
 		lenbuf = getline(&buffer, &len, stdin);
-		signal(SIGINT, handle_ctrlC);
 		if (lenbuf == 0)
 			continue;
 		else if (lenbuf == -1)
 		{
-			write(STDERR_FILENO, "Can't read the command or find EOF\n", 35);
+			write(STDERR_FILENO, "\n./shell: Can't read the command or find EOF\n", 45);
+			free(buffer);
 			exit(EXIT_FAILURE);
 		}
 		else if (lenbuf > 0)
-			write(STDOUT_FILENO, buffer, lenbuf);
+		{
+			write(STDERR_FILENO, "./shell: No such file or directory\n", 35);
+			free(buffer);
+		}
 	}
 	return (0);
 }
