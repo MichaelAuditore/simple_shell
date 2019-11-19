@@ -9,27 +9,18 @@ size_t _getline(char **buffer, size_t *n, FILE *stream)
 {
 	int length;
 	do{
-		dprintf(1, "$ ");
+		write(1, "$ ", 2);
+		if ((read(STDIN_FILENO, *buffer, *n)) > 0)
+			write(1, "$ ", 2);
+		if (!((read(STDIN_FILENO, *buffer, *n)) > 0))
+		{
+			free(*buffer);
+			write(1, "\n", 1);
+			break;
+		}
+		else
+			write(1, "$ ", 2);
 	}
-	while ((length = read(STDIN_FILENO, *buffer, *n)) == 0);
+	while ((length = read(STDIN_FILENO, *buffer, *n)) > 0);
 	return (length);
-}
-int main()
-{
-	char *buffer;
-	size_t bufsize = 32;
-	size_t characters;
-
-	buffer = (char *)malloc(bufsize * sizeof(char));
-	if( buffer == NULL)
-	{
-		perror("Unable to allocate buffer");
-		exit(1);
-	}
-
-	/* dprintf(1, "$ "); */
-	characters = _getline(&buffer,&bufsize, stdin);
-	printf("%s",buffer);
-	printf("the len of input %li\n", characters);
-	return(0);
 }
