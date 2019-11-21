@@ -1,5 +1,4 @@
 #include "shell.h"
-#include <stdlib.h>
 /**
  * _strtok - splits a string into tokens by delimiters
  * @str: String to split

@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * print_listint - print all elements for a list
+ * print_list - print all elements for a list
  * @h: Address of linked list
  * Return: Number of elements
  */
