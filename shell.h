@@ -31,6 +31,7 @@ char *_strtok(char *str, char *tokens);
 char *_strdup(char *str);
 size_t print_list(const path_t *h);
 int _setenv(char *name, char *value, int overwrite);
+int _unsetenv(char *name);
 path_t *add_path(path_t **head, const char *str);
 void free_list(path_t *head);
 #endif
