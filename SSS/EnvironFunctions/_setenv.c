@@ -1,6 +1,12 @@
-#define _GNU_SOURCE
 #include "shell.h"
 
+/**
+ * _setenv - Add a new enviroment varible. If the variable exist and overwrite
+ * if the value not is 0, not do anything if the value is 0. If the variable not
+ * exist creat it.
+ * newenv: The variable
+ * Return: 0 id succes of -1 if fail. (Remember free it)
+ */
 int _strlendl(char **str)
 {
 	int i;
@@ -16,47 +22,56 @@ int _strlendl(char **str)
  * newenv: The variable
  * Return: 0 id succes of -1 if fail. (Remember free it)
  */
-int _setenv(const char *name, const char *value, int overwrite)
+char ** _setenv(char **environ, const char *name, const char *value)
 {
 	int i, lenenv;
-	char *namev, *fvariable, *copystr;
+	char *namev, *fvariable, *copy_new_env, **newenviron;
 
 	/*
 	 * Declare the name of the new Env Variable inside a malloc with '=' in
 	 * the final of string.
 	 */
-	namev = str_concat(name, "=");
+	namev = str_concat((char *)name, "=");
 	lenenv = _strlendl(environ);
-	fvariable = str_concat(namev, value);
+	fvariable = str_concat(namev, (char *)value);
 	/*
 	 * Search if the newenv have some match inside the Env varibles.
 	 */
 	for (i = 0; environ[i] != '\0'; i++)
 	{
-		if ((_strcmp(name, environ[i])) == 0)
+		if ((_strcmp((char *)name, environ[i])) == 0)
 		{
-			if (overwrite != 0)
+			if (value != NULL)
 			{
 				free(environ[i]);
-				copystr = _strdup(fvariable);
-				environ[i] = copystr;
+				copy_new_env = _strdup(fvariable);
+				environ[i] = copy_new_env;
 				free(fvariable);
 				free(namev);
-				return (0);
+				return (environ);
 			}
 		}
 	}
 	if (environ[i] == '\0')
 	{
-		newenviron = copyenvdp();
-		if (overwrite != 0)
+		newenviron = _copyenvdp(environ, lenenv, lenenv + 1);
+		freedp(environ);
+		if (newenviron == 0)
 		{
-			environ[i] = fvariable;
+			free(fvariable);
+			perror("Could not make the copy");
+			return (NULL);
 		}
-		environ[i + 1] = '\0';
-		environ[i] = replacestr;
-		free(nne);
-		return (0);
+		copy_new_env = _strdup(fvariable);
+		newenviron[lenenv] = copy_new_env;
+		environ = newenviron;
+		free(fvariable);
+		if (copy_new_env == 0)
+		{
+			perror("Not allocate memory in the replica");
+			return (NULL);
+		}
+		return (environ);
 	}
-	return (-1);
+	return (NULL);
 }

@@ -1,4 +1,3 @@
-#define _GNU_SOURCE
 #include "shell.h"
 
 /**
@@ -8,22 +7,24 @@
  */
 int main (int argc, char *argv[], char **environ)
 {
-	if (argc == 2)
+	if (argc > 2)
 	{
 		int i = 0;
+		char **newenviron;
 
 		for (i = 0; environ[i] != '\0'; i++)
 			printf("%s\n", environ[i]);
 
 		printf("\nBefore use _getenv\n");
 
-		_setenv(argv[1]);
+		newenviron = _setenv(environ, argv[1], argv[2]);
+		environ = newenviron;
 		for (i = 0; environ[i] != '\0'; i++)
 			printf("%s\n", environ[i]);
 
 		printf("\nAfter use _setenv\n");
 		return (0);
 	}
-	printf("Pls put only 2 parameters\n");
+	printf("Pls put 2 or more parameters\n");
 	return (-1);
 }
