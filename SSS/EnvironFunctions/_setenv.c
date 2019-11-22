@@ -55,7 +55,6 @@ char ** _setenv(char **environ, const char *name, const char *value)
 	if (environ[i] == '\0')
 	{
 		newenviron = _copyenvdp(environ, lenenv, lenenv + 1);
-		freedp(environ);
 		if (newenviron == 0)
 		{
 			free(fvariable);

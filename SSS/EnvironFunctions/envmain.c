@@ -22,6 +22,7 @@ int main (int argc, char *argv[], char **environ)
 		for (i = 0; environ[i] != '\0'; i++)
 			printf("%s\n", environ[i]);
 
+		freedp(newenviron);
 		printf("\nAfter use _setenv\n");
 		return (0);
 	}
