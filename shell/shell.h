@@ -39,4 +39,5 @@ void print_env(void);
 int execute_path(char *exec, char **options);
 void write_error(char *name, char **buffer);
 char **do_arguments(char *input);
+char *_strtok(char *str, char *tokens);
 #endif
