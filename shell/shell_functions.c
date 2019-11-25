@@ -15,50 +15,37 @@ void _signal(int s)
  * @input: Pointer to pointer arguments
  * Return: 0 is success or -1 is error
  */
-int execute(char **input)
+int execute(char *input)
 {
-	int i = 0, j = 0, k = 0;
-	char *path = *input;
-	char *exec;
-	char *tmpexe = _strdup(*input);
-	char **argv = NULL;
+	int k = 0;
+	int stat = 0;
+	char **argv = do_arguments(input);
 
-	path = strtok(path, " \n\t");
-	exec = path;
-	while (path != NULL)
+	if (_strcmp(input, "env\n") == 0)
+		print_env();
+	else
 	{
-		i++;
-		path = strtok(NULL, " \n\t");
+		if ((execve(argv[0], argv, NULL)) == -1)
+			stat = execute_path(argv[0], argv);
 	}
-	argv = malloc(i + 1);
-	tmpexe = strtok(tmpexe, " \n\t");
-	for (j = 0; tmpexe != NULL; j++)
-	{
-		argv[j] = _strdup(tmpexe);
-		tmpexe = strtok(NULL, " \n\t");
-	}
-	argv[j] = NULL;
-	execve(exec, argv, NULL);
 	while (argv[k] != NULL)
 	{
 		free(argv[k]);
 		k++;
 	}
 	free(argv);
-	free(tmpexe);
-	return (0);
+	return (stat);
 }
 /**
  * print_env - print the environment variables
- * @envp: Pointer to environment variables
  */
-void print_env(char *envp[])
+void print_env(void)
 {
 	int i = 0;
 
-	while (envp[i] != NULL)
+	while (environ[i] != NULL)
 	{
-		dprintf(1, "%s\n", envp[i]);
+		dprintf(1, "%s\n", environ[i]);
 		i++;
 	}
 }

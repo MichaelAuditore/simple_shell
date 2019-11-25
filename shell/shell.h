@@ -15,7 +15,7 @@
  * @next: points to the next node
  *
  * Description: singly linked list node structure
- * for Holberton project
+ * for Shell project
  */
 typedef struct path
 {
@@ -23,9 +23,9 @@ typedef struct path
 	struct path *next;
 } path_t;
 void _signal(int s);
-void shell_loop(char **argv, char *envp[]);
+void shell_loop(char **argv);
 size_t _getline(char **buffer, size_t *n);
-int execute(char **input);
+int execute(char *input);
 int _strcmp(char *s1, char *s2);
 path_t *add_path(path_t **head, const char *str);
 void free_list(path_t *head);
@@ -35,5 +35,8 @@ char *_strdup(char *str);
 char *_getenv(const char *name);
 path_t *do_link();
 char *_strcat(char *dest, char *src);
-void print_env(char *envp[]);
+void print_env(void);
+int execute_path(char *exec, char **options);
+void write_error(char *name, char **buffer);
+char **do_arguments(char *input);
 #endif
