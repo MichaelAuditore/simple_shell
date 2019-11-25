@@ -10,18 +10,20 @@ char *_getenv(const char *name)
 	if (name)
 	{
 		int i = 0;
-		char *tmp, *ptr;
+		char *ptr;
 
 			while (environ[i] != NULL)
 			{
 				if (_strcmp((char *)name, environ[i]) == 0)
 				{
-					return (environ[i]);
+					ptr = _strdup(environ[i]);
+					return (ptr);
 				}
-				else
-					return (NULL);
+				/* else */
+					/* return (NULL); */
 				i++;
 			}
+			return (NULL);
 	}
 	return (NULL);
 }
