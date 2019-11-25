@@ -25,7 +25,9 @@ int execute(char *input)
 		print_env();
 	else
 	{
-		if ((execve(argv[0], argv, NULL)) == -1)
+		if (argv[0][0] == '/')
+			stat = execve(argv[0], argv, NULL);
+		else
 			stat = execute_path(argv[0], argv);
 	}
 	while (argv[k] != NULL)

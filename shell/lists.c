@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * _getenv - get a value of a variable
  * @name: Constant with the name of environment variable to search
@@ -8,6 +9,7 @@ char *_getenv(const char *name)
 {
 	int i = 0;
 	char *tmp, *ptr;
+	extern char **environ;
 
 	while (environ[i] != NULL)
 	{

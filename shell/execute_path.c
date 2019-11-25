@@ -12,11 +12,11 @@ char **do_arguments(char *input)
 	char *tmpexe = _strdup(input);
 	char **argv = NULL;
 
-	path = _strtok(path, " \n\t");
+	path = strtok(path, " \n\t");
 	while (path != NULL)
 	{
-		i++;
-		path = _strtok(NULL, " \n\t");
+			i++;
+		path = strtok(NULL, " \n\t");
 	}
 	argv = (char **) malloc((sizeof(char *) * i) + 1);
 	if (argv == NULL)
@@ -24,12 +24,12 @@ char **do_arguments(char *input)
 		free(tmpexe);
 		return (NULL);
 	}
-	tmpexe = _strtok(tmpexe, " \n\t");
+	tmpexe = strtok(tmpexe, " \n\t");
 	while (tmpexe != NULL)
 	{
 		argv[j] = _strdup(tmpexe);
 		j++;
-		tmpexe = _strtok(NULL, " \n\t");
+		tmpexe = strtok(NULL, " \n\t");
 	}
 	argv[i + 1] = NULL;
 	free(tmpexe);
@@ -46,7 +46,7 @@ char **do_arguments(char *input)
 int execute_path(char *name, char **options)
 {
 	DIR *dir;
-	int stat = 0;
+	int st = 0;
 	struct dirent *pDirent;
 	path_t *head = do_link();
 	path_t *tmp = head;
@@ -67,8 +67,6 @@ int execute_path(char *name, char **options)
 				path = _strdup(tmp->path);
 				path = _strcat(path, "/");
 				path = _strcat(path, name);
-				options[0] = malloc(_strlen(path) + 1);
-				options[0] = path;
 				break;
 			}
 		}
@@ -78,9 +76,8 @@ int execute_path(char *name, char **options)
 		tmp = tmp->next;
 	}
 	if ((execve(path, options, NULL)) == -1)
-		stat = -1;
+		st = -1;
 	free(path);
-	free(options[0]);
 	free_list(head);
-	return (stat);
+	return (st);
 }

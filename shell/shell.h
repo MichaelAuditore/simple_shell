@@ -3,6 +3,7 @@
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -23,7 +24,7 @@ typedef struct path
 	struct path *next;
 } path_t;
 void _signal(int s);
-void shell_loop(char **argv);
+void shell_loop(char **argv, char **envp);
 size_t _getline(char **buffer, size_t *n);
 int execute(char *input);
 int _strcmp(char *s1, char *s2);
@@ -37,7 +38,7 @@ path_t *do_link();
 char *_strcat(char *dest, char *src);
 void print_env(void);
 int execute_path(char *exec, char **options);
-void write_error(char *name, char **buffer);
+void write_error(char *name, char **buffer, size_t nerrors);
 char **do_arguments(char *input);
 char *_strtok(char *str, char *tokens);
 #endif

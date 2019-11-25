@@ -8,6 +8,6 @@
 int main(int argc, char **argv)
 {
 	(void)argc;
-	shell_loop(argv);
+	shell_loop(argv, envp);
 	return (0);
 }
