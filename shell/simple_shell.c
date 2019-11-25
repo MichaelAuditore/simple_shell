@@ -48,7 +48,7 @@ void write_error(char *name, char **buffer, size_t nerrors)
  * to evaluate the input of user, and executes.
  * @argv: Pointer to arguments recieved
  */
-void shell_loop(char **argv, char **envp)
+void shell_loop(char **argv)
 {
 	int errors = 0;
 	int status = 0;
@@ -56,7 +56,6 @@ void shell_loop(char **argv, char **envp)
 	char *buffer = NULL;
 	int len = 0;
 	size_t lenb = 0;
-	(void)envp;
 
 	while (1)
 	{

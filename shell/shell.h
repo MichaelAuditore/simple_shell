@@ -24,7 +24,7 @@ typedef struct path
 	struct path *next;
 } path_t;
 void _signal(int s);
-void shell_loop(char **argv, char **envp);
+void shell_loop(char **argv);
 size_t _getline(char **buffer, size_t *n);
 int execute(char *input);
 int _strcmp(char *s1, char *s2);
