@@ -83,12 +83,12 @@ In your shell: Type the name of executable(e.g. ./hsh)
 If command exists and arguments is OK, this is execute and display correct output in the bash, or show error message if not found the file or directory of command or arguments
 ## Man file
 
+man_1_simple_shell (Open it in linux using man command (e.g. man ./man_1_simple_shell))
 ## EXIT PROGRAM
 
 You can use Ctrl+D or writing exit in the shell to finish the program
 
 
-man_1_simple_shell (Open it in linux using man command (e.g. man ./man_1_simple_shell))
 ## AUTHORS
 Angel Pedroza Cardenas [AngelPedroza] <https://github.com/AngelPedroza>
 Miguel Parada [Michael-Auditore] <https://github.com/MichaelAuditore>
