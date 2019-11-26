@@ -45,7 +45,6 @@ char *_strcat(char *dest, char *src)
 			break;
 	}
 	dest[i] = '\0';
-  
 	return (dest);
 }
 /**
@@ -86,13 +85,15 @@ int _strlen(char *s)
  */
 char *_strdup(char *str)
 {
-char *nstr = NULL;
+	char *nstr = NULL;
 
 	if (str == NULL)
 		return (NULL);
 	nstr = malloc(_strlen(str) + 1);
+
 	if (nstr == NULL)
 		return (NULL);
+
 	_strcpy(nstr, str);
 	return (nstr);
 }
