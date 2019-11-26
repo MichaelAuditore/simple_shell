@@ -17,13 +17,14 @@
  *
  * Description: singly linked list node structure
  * for Shell project
+ */
 typedef struct path
 {
 	char *path;
 	struct path *next;
 } path_t;
 void _signal(int s);
-void shell_loop(char **argv);
+void shell_loop(char **argv, char **envp);
 size_t _getline(char **buffer, size_t *n);
 int execute(char *input);
 int _strcmp(char *s1, char *s2);
