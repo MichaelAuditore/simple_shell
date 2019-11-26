@@ -91,4 +91,5 @@ You can use Ctrl+D or writing exit in the shell to finish the program
 
 ## AUTHORS
 Angel Pedroza Cardenas [AngelPedroza] <https://github.com/AngelPedroza>
+
 Miguel Parada [Michael-Auditore] <https://github.com/MichaelAuditore>
