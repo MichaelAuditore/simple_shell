@@ -15,7 +15,7 @@ char **do_arguments(char *input)
 	path = strtok(path, " \n\t");
 	while (path != NULL)
 	{
-			i++;
+		i++;
 		path = strtok(NULL, " \n\t");
 	}
 	argv = (char **) malloc((sizeof(char *) * i) + 1);

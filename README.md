@@ -13,25 +13,25 @@ Write a UNIX command line interpreter of one word.
     Display a prompt and wait for the user to type a command.
     A command line always ends with a new line.
     The prompt is displayed again each time a command has been executed.
-    
+
 # 2. Command line Interpreter with arguments
 
 Write a UNIX command line interpreter with more arguments.
 
     Handle command lines with arguments
-    
+
 # 3. Handle the PATH
 
  Handle the Global Environment PATH variable to search and execute any command with arguments or options
- 
+
      Handle the PATH
-   
+
 # 4. Create an Exit for shell
 
 Implement the exit built-in, that exits the shell
 Usage: exit
 You don’t have to handle any argument to the built-in exit
-    
+
     #cisfun ls
     holamundo.js  index.html styles.css
     #cisfun ^C
@@ -50,7 +50,7 @@ Handle Ctrl+C: your shell should not quit when the user inputs ^C
 # 6. Env
 
 Implement the env built-in, that prints the current environment
-    
+
     miguel@ubuntu:~/shell$ ./simple_shell
     #cisfun$ env
     USER=miguel
@@ -66,7 +66,7 @@ Implement the env built-in, that prints the current environment
     PATH=/home/miguel/bin:/home/miguel/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
     DISPLAY=:0
     #cisfun$ exit
-    miguel@ubuntu:~/shell$ 
+    miguel@ubuntu:~/shell$
 
 ## EXAMPLE
 

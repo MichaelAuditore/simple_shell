@@ -35,6 +35,7 @@ char *itoa(size_t nerrors)
 void write_error(char *name, char **buffer, size_t nerrors)
 {
 	char *n = itoa(nerrors);
+
 	write(2, name, _strlen(name));
 	write(2, ": ", 2);
 	write(2, n, _strlen(n));
