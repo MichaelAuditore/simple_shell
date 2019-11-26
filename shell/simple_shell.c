@@ -35,12 +35,12 @@ char *itoa(size_t nerrors)
 void write_error(char *name, char **buffer, size_t nerrors)
 {
 	char *n = itoa(nerrors);
-	write(1, name, _strlen(name));
-	write(1, ": ", 2);
-	write(1, n, _strlen(n));
-	write(1, ": ", 2);
-	write(1, *buffer, _strlen(*buffer));
-	write(1, ": not found\n", 12);
+	write(2, name, _strlen(name));
+	write(2, ": ", 2);
+	write(2, n, _strlen(n));
+	write(2, ": ", 2);
+	write(2, *buffer, _strlen(*buffer));
+	write(2, ": not found\n", 12);
 	free(n);
 }
 /**
@@ -74,7 +74,10 @@ void shell_loop(char **argv)
 		if (child == 0)
 		{
 			if (execute(buffer) == -1)
+			{
 				errors++, write_error(argv[0], &buffer, errors);
+				_exit(child);
+			}
 			exit(EXIT_SUCCESS);
 		}
 		wait(&status);
