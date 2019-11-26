@@ -12,7 +12,7 @@ char **do_arguments(char *input)
 	char *tmpexe = _strdup(input);
 	char **argv = NULL;
 
-	path = strtok(path, " \n\t");
+	path = _strtok(path, " \n\t");
 	while (path != NULL)
 	{
 		i++;
@@ -24,12 +24,12 @@ char **do_arguments(char *input)
 		free(tmpexe);
 		return (NULL);
 	}
-	tmpexe = strtok(tmpexe, " \n\t");
+	tmpexe = _strtok(tmpexe, " \n\t");
 	while (tmpexe != NULL)
 	{
 		argv[j] = _strdup(tmpexe);
 		j++;
-		tmpexe = strtok(NULL, " \n\t");
+		tmpexe = _strtok(NULL, " \n\t");
 	}
 	argv[i + 1] = NULL;
 	free(tmpexe);
@@ -67,6 +67,8 @@ int execute_path(char *name, char **options)
 				path = _strdup(tmp->path);
 				path = _strcat(path, "/");
 				path = _strcat(path, name);
+				options[0] = malloc (_strlen(path) + 1);
+				_strcpy(options[0], path);
 				break;
 			}
 		}

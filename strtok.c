@@ -18,8 +18,8 @@ char *_strtok(char *str, char *tokens)
 			{
 				if (str[i] == tokens[j])
 				{
-					newstr = str;
 					str[i] = '\0';
+					newstr = str;
 					return (str);
 				}
 			}
