@@ -12,7 +12,7 @@ char **do_arguments(char *input)
 	char *tmpexe = _strdup(input);
 	char **argv = NULL;
 
-	path = _strtok(path, " \n\t");
+	path = strtok(path, " \n\t");
 	while (path != NULL)
 	{
 		i++;
@@ -24,12 +24,12 @@ char **do_arguments(char *input)
 		free(tmpexe);
 		return (NULL);
 	}
-	tmpexe = _strtok(tmpexe, " \n\t");
+	tmpexe = strtok(tmpexe, " \n\t");
 	while (tmpexe != NULL)
 	{
 		argv[j] = _strdup(tmpexe);
 		j++;
-		tmpexe = _strtok(NULL, " \n\t");
+		tmpexe = strtok(NULL, " \n\t");
 	}
 	argv[i + 1] = NULL;
 	free(tmpexe);
