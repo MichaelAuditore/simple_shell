@@ -19,13 +19,17 @@ int execute(char *input)
 {
 	int k = 0;
 	int stat = 0;
-	char **argv = do_arguments(input);
+	char **argv;
 
 	if (_strcmp(input, "env\n") == 0)
+	{
 		print_env();
+		return (0);
+	}
 	else
 	{
-		if (argv[0][0] == '/')
+		argv = do_arguments(input);
+		if (argv[0][0] == '/' || argv[0][0] == '.')
 			stat = execve(argv[0], argv, NULL);
 		else
 			stat = execute_path(argv[0], argv);

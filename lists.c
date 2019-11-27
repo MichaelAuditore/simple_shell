@@ -9,7 +9,6 @@ char *_getenv(const char *name)
 {
 	int i = 0;
 	char *tmp, *ptr;
-	extern char **environ;
 
 	while (environ[i] != NULL)
 	{
@@ -40,7 +39,7 @@ path_t *add_path(path_t **head, const char *str)
 		return (NULL);
 
 	if (str != NULL)
-		tmp->path = (void *)str;
+		tmp->path = _strdup((char *)str);
 	else
 		tmp->path = "(nil)";
 	tmp->next = NULL;
@@ -88,6 +87,7 @@ void free_list(path_t *head)
 	while (current != NULL)
 	{
 		next = current->next;
+		free(current->path);
 		free(current);
 		current = next;
 	}
