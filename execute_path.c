@@ -67,7 +67,7 @@ int execute_path(char *name, char **options)
 				path = _strdup(tmp->path);
 				path = _strcat(path, "/");
 				path = _strcat(path, name);
-				options[0] = malloc (_strlen(path) + 1);
+				options[0] = malloc(_strlen(path) + 1);
 				_strcpy(options[0], path);
 				break;
 			}
