@@ -51,40 +51,40 @@ void write_error(char *name, char **buffer, size_t nerrors)
  */
 void shell_loop(char **argv)
 {
-        int errors = 0;
-        int status = 0;
-        pid_t child;
-        char *buffer = NULL;
-        int len = 0;
-        size_t lenb = 0;
+	int errors = 0;
+	int status = 0;
+	pid_t child;
+	char *buffer = NULL;
+	int len = 0;
+	size_t lenb = 0;
 
-        while (1)
-        {
-                if (isatty(0) == 1)
-                        write(STDOUT_FILENO, "#cisfun$ ", 9);
-                signal(SIGINT, _signal), len = getline(&buffer, &lenb, stdin);
-                if ((int)len == -1)
-                {
-                        if ((int)len == -1 && isatty(0) == 1)
-                                write(1, "\n", 1);
-                        break;
-                }
-                if (_strcmp(strtok(buffer, " \n\t"), "exit\n") == 0)
-                        break;
-                child = fork();
-                if (child == -1)
-                        free(buffer), perror("Error:");
-                if (child == 0)
-                {
-                        if (execute(buffer) == -1)
-                        {
-                                errors++, write_error(argv[0], &buffer, errors);
-                                _exit(child);
-                        }
-                        exit(EXIT_SUCCESS);
-                }
-                else
-                        wait(&status);
-        }
-        free(buffer);
+	while (1)
+	{
+		if (isatty(0) == 1)
+			write(STDOUT_FILENO, "#cisfun$ ", 9);
+		signal(SIGINT, _signal), len = getline(&buffer, &lenb, stdin);
+		if ((int)len == -1)
+		{
+			if ((int)len == -1 && isatty(0) == 1)
+				write(1, "\n", 1);
+			break;
+		}
+		if (_strcmp(strtok(buffer, " \n\t"), "exit") == 0)
+			break;
+		child = fork();
+		if (child == -1)
+			free(buffer), perror("Error:");
+		if (child == 0)
+		{
+			if (execute(buffer) == -1)
+			{
+				errors++, write_error(argv[0], &buffer, errors);
+				_exit(child);
+			}
+			exit(EXIT_SUCCESS);
+		}
+		else
+			wait(&status);
+	}
+	free(buffer);
 }
