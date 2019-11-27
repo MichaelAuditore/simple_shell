@@ -81,7 +81,8 @@ void shell_loop(char **argv)
 			}
 			exit(EXIT_SUCCESS);
 		}
-		wait(&status);
+		else
+			wait(&status);
 	}
 	free(buffer);
 }
