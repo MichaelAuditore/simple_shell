@@ -63,12 +63,14 @@ void shell_loop(char **argv)
 		if (isatty(0) == 1)
 			write(STDOUT_FILENO, "#cisfun$ ", 9);
 		signal(SIGINT, _signal), len = getline(&buffer, &lenb, stdin);
-		if (_strcmp(buffer, "exit\n") == 0 || (int)len == -1)
-		{
-			if ((int)len == -1 && isatty(0) == 1)
-				write(1, "\n", 1);
-			break;
-		}
+		if ((int)len == -1)
+                {
+                        if ((int)len == -1 && isatty(0) == 1)
+                                write(1, "\n", 1);
+                        break;
+                }
+                if (_strcmp(buffer, "exit\n") == 0)
+                        break;
 		child = fork();
 		if (child == -1)
 			free(buffer), perror("Error:");
