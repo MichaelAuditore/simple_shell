@@ -69,7 +69,7 @@ void shell_loop(char **argv)
 				write(1, "\n", 1);
 			break;
 		}
-		if (_strcmp(buffer, "\n") == 0)
+		if (_strcmp(buffer, "\n") == 0 || val_spaces(buffer) == 0)
 			continue;
 		child = fork();
 		if (child == -1)
@@ -88,4 +88,24 @@ void shell_loop(char **argv)
 			wait(&status), errors++;
 	}
 	free(buffer);
+}
+/**
+ * val_spaces - validate is buffer contains only spaces
+ * @buffer: string to validate
+ * Return: 0 is only spaces or 1 is contain something more
+ */
+int val_spaces(char *buffer)
+{
+	int i = 0, nspaces = 0;
+	int len = _strlen(buffer);
+
+	while (buffer[i] != '\0')
+	{
+		if (buffer[i] == 32)
+			nspaces++;
+		i++;
+	}
+	if (nspaces == (len - 1))
+		return (0);
+	return (1);
 }

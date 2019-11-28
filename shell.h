@@ -41,4 +41,5 @@ int execute_path(char *exec, char **options);
 void write_error(char *name, char **buffer, size_t nerrors);
 char **do_arguments(char *input);
 char *_strtok(char *str, char *tokens);
+int val_spaces(char *buffer);
 #endif
