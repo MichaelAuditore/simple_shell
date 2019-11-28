@@ -16,14 +16,14 @@ char *itoa(size_t nerrors)
 		nerrors = nerrors / 10;
 	}
 
-	newstr = malloc(sizeof(char) * len + 1);
+	newstr = malloc(sizeof(char) * len);
 	if (newstr == NULL)
 		return (NULL);
+	newstr[len] = '\0';
 	do {
 		newstr[--len] = base[number % 10];
 		number /= 10;
 	} while (number != 0);
-	newstr[len + 1] = '\0';
 	return (newstr);
 }
 /**
@@ -51,7 +51,7 @@ void write_error(char *name, char **buffer, size_t nerrors)
  */
 void shell_loop(char **argv)
 {
-	int errors = 0;
+	int errors = 1;
 	int status = 0;
 	pid_t child;
 	char *buffer = NULL;
@@ -63,14 +63,14 @@ void shell_loop(char **argv)
 		if (isatty(0) == 1)
 			write(STDOUT_FILENO, "#cisfun$ ", 9);
 		signal(SIGINT, _signal), len = getline(&buffer, &lenb, stdin);
-		if ((int)len == -1)
+		if (((int)len == -1) || (_strcmp(buffer, "exit\n") == 0))
 		{
 			if ((int)len == -1 && isatty(0) == 1)
 				write(1, "\n", 1);
 			break;
 		}
-		if (_strcmp(strtok(buffer, " \n\t"), "exit") == 0)
-			break;
+		if (_strcmp(buffer, "\n") == 0)
+			continue;
 		child = fork();
 		if (child == -1)
 			free(buffer), perror("Error:");
@@ -78,13 +78,14 @@ void shell_loop(char **argv)
 		{
 			if (execute(buffer) == -1)
 			{
-				errors++, write_error(argv[0], &buffer, errors);
-				_exit(child);
+				write_error(argv[0], &buffer, errors);
+				free(buffer);
+				exit(127);
 			}
 			exit(EXIT_SUCCESS);
 		}
 		else
-			wait(&status);
+			wait(&status), errors++;
 	}
 	free(buffer);
 }
